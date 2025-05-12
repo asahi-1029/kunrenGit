@@ -1,0 +1,207 @@
+﻿
+@{
+    Layout = null;
+}
+@model ASP.NET_MVC追加機能.Models.UserManagementModel
+@using ASP.NET_MVC追加機能.Models
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_UserManageList</title>
+</head>
+<body>
+     <div style="margin-top: 5px"></div>
+                  <table style="width: 100%; border: 1px solid #5b9bd5">
+                    <tbody>
+                      <tr style="height: 35px">
+                        <td style="width: 200px; padding-left: 5px" colspan="2">
+                            @if(Model != null)
+                            {
+                             <text>総件数:</text><span id="txt総件数">@(Model.検索結果一覧.Count)</span><text>件</text>
+                            }
+                            else
+                            {
+                             <text>総件数:</text><span id="txt総件数">0</span><text>件</text>
+                            }
+                                
+                        </td>
+                        <td
+                          style="
+                            font-weight: bold;
+                            width: auto;
+                            text-align: right;
+                            font-weight: normal;
+                          "
+                        >
+                          表示件数
+                        </td>
+                        <td style="text-align: right; width: 100px">
+                          <select
+                            class="Select"
+                            id="cbx表示件数"
+                            name="表示件数"
+                            style="width: 85px"
+                          >
+                            <option value="0" @if (Model != null && Model.表示件数 == 0){<text>selected</text>}>すべて</option>
+                            <option value="5" @if (Model != null && Model.表示件数 == 5){<text>selected</text>}>5件</option>
+                            <option value="10"@if (Model != null && Model.表示件数 == 10){<text>selected</text>}>10件</option>
+                            <option value="20"@if (Model != null && Model.表示件数 == 20){<text>selected</text>}>20件</option>
+                            <option value="50"@if (Model != null && Model.表示件数 == 50){<text>selected</text>}>50件</option>
+                            <option value="100"@if (Model != null && Model.表示件数 == 100){<text>selected</text>}>100件</option>
+                          </select>
+                        </td>
+                      </tr>
+
+                      <tr name="tabletest" style="height: 35px">
+                        <td colspan="4" style="border: 1px solid #5b9bd5">
+                          <div name="ユーザーの一覧" id="divユーザーの一覧">
+                            <table
+                              id="検索結果一覧"
+                              style="
+                                width: 100%;
+                                word-break: break-all;
+                                font-size: 13px;
+                              "
+                            >
+                              <tbody>
+                                <tr
+                                  style="
+                                    height: 50px;
+                                    border-bottom: 3px solid #5b9bd5;
+                                  "
+                                >
+                                  <td style="text-align: center; width: 40px">
+                                    選択
+                                  </td>
+                                  <td
+                                    style="text-align: center; width: 145px"
+                                    onclick="sort(this)"
+                                    id="txt氏名"
+                                  >
+                                    氏名<br /><span>@if (Model != null && Model.ソート列 == "氏名"){<text>@Model.ソート順</text>}</span>
+                                  </td>
+                                  <td
+                                    style="text-align: center; width: 40px"
+                                    onclick="sort(this)"
+                                  >
+                                    性別<br /><span>@if (Model != null && Model.ソート列 == "性別"){<text>@Model.ソート順</text>}</span>
+                                  </td>
+                                  <td
+                                    style="text-align: center; width: 100px"
+                                    onclick="sort(this)"
+                                  >
+                                    生年月日<br /><span>@if (Model != null && Model.ソート列 == "生年月日"){<text>@Model.ソート順</text>}</span>
+                                  </td>
+                                  <td
+                                    style="text-align: center; width: 170px"
+                                    onclick="sort(this)"
+                                  >
+                                    メール<br /><span>@if (Model != null && Model.ソート列 == "メール"){<text>@Model.ソート順</text>}</span>
+                                  </td>
+                                  <td
+                                    style="text-align: center; width: 100px"
+                                    onclick="sort(this)"
+                                  >
+                                    所属<br /><span>@if (Model != null && Model.ソート列 == "所属"){<text>@Model.ソート順</text>}</span>
+                                  </td>
+                                  <td
+                                    style="text-align: center; width: 100px"
+                                    onclick="sort(this)"
+                                  >
+                                    役職<br /><span>@if (Model != null && Model.ソート列 == "役職"){<text>@Model.ソート順</text>}</span>
+                                  </td>
+                                </tr>
+                                  @if(Model != null && Model.表示一覧 != null){
+                                      foreach(UserManagementRowModel row in Model.表示一覧)
+                                      {
+
+                                <tr id="a">
+                                    <td><input type="checkbox" id="@row.氏名" /></td>
+                                  <td style="width: 125px">@row.氏名</td>
+                                  @if(row.性別 == "1"){<td style="width: 40px">男</td>}
+                                    else if(row.性別 == "2"){<td style="width: 40px">女</td>}
+                                    else{<td></td>}
+                                  <td style="width: 80px">@row.生年月日</td>
+                                  <td style="width: 150px">
+                                    @row.メール
+                                  </td>
+                                  <td style="width: 80px">@row.所属</td>
+                                  <td style="width: 80px">@row.役職</td>
+                                </tr>
+                                  }
+                                  }
+                                  
+                                
+                              </tbody>
+                            </table>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          @if (Model != null && Model.表示一覧 != null && Model.表示一覧.Count < Model.検索結果一覧.Count)
+              {
+                     <table id="tb改ページ" style="width:1px; height:50px;float:right">
+                         <tr style="height:30px;vertical-align:bottom">
+                             <td style="width:82%;text-align:right">
+                                 @if(Model.現ページ == 1)
+                                 {
+                                     <input type="image" src="~/Images/left_triangle_disable.png" id="btn前ページ"
+                                         style="width:30px;font-weight:bold;outline:none" />
+                                 }
+                                 else
+                                 {
+                                     <input type="image" src="~/Images/left_triangle.png" id="btn前ページ"
+                                         style="width:30px;font-weight:bold;outline:none" />
+                                 }
+
+                                     
+                             </td>
+                             <td style="width:60px">
+                                 <select name="現ページ" id="txt現ページ" style="width:60px;margin-bottom:5px">
+                                     @if(Model.表示件数 != 0)
+                                     {
+                                         for(int i = 1; i <= Model.検索結果一覧.Count / Model.表示件数 + 1; i++)
+                                         {
+                                             if(i == Model.現ページ)
+                                             {
+                                                 <option selected value="@(i)">@(i)</option>
+                                             }
+                                             else
+                                             {
+                                                 <option value="@(i)">@(i)</option>
+                                             }
+                                          }
+                                       }
+
+                                                
+                                             
+                                 </select>
+                             </td>
+                             <td>
+                                 @if(Model.現ページ == (Model.検索結果一覧.Count / Model.表示件数 + 1))
+                                 {
+                                     <input type="image" src="~/Images/right_triangle_disable.png" id="btn次ページ"
+                                         style="width:30px;font-weight:bold;outline:none" />
+                                 }
+                                 else
+                                 {
+                                     <input type="image" src="~/Images/right_triangle.png" id="btn次ページ"
+                                         style="width:30px;font-weight:bold;outline:none" />
+                                 }
+                             </td>
+                         </tr>
+
+                     </table>
+          }
+    
+</body>
+</html>

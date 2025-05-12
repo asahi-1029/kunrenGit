@@ -1,0 +1,88 @@
+﻿
+@{
+    Layout = null;
+}
+@model ASP.NET_MVC追加機能.Models.ApplicationInfoModel
+@using ASP.NET_MVC追加機能.Models
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    
+    <meta name="viewport" content="width=device-width" />
+    <title>_ApplicationList</title>
+</head>
+<body>
+    <div style="margin-top:5px;"></div>
+            <table style="width:100%; border:1px solid #5B9BD5">
+                <tbody><tr style="height:35px;">
+                    <td style="width:200px;padding-left:5px" colspan="2">
+                        総件数：53 件
+                    </td>
+                    <td style="font-weight:bold;width:auto;text-align:right;font-weight:normal">
+                        表示件数
+                    </td>
+                    <td style="text-align:right;width:100px">
+                        <select class="Select" id="cbx表示件数" name="表示件数" style="width:85px">
+                            <option value="0">すべて</option>
+                            <option value="5">5件</option>
+                            <option value="10" selected="">10件</option>
+                            <option value="20">20件</option>
+                            <option value="50">50件</option>
+                            <option value="100">100件</option>
+                        </select>
+                    </td>
+                    
+                </tr>
+    <tr name="tabletest" style="height:35px">
+                    <td colspan="4" style=" border: 1px solid #5B9BD5;">
+                        <div name="ユーザーの一覧" id="divユーザーの一覧">
+    <table id="検索結果一覧" style="width:100%;word-break:break-all;font-size:13px">
+
+        <tbody><tr style="height:50px;border-bottom:3px solid #5B9BD5;">
+            <td style="text-align:center;width:40px">状態</td>
+            <td style="text-align:center;width:50px" onclick="sort(this)">申請ID<br><span></span></td>
+            <td style="text-align:center;width:120px;" onclick="sort(this)">申請種類<br><span></span></td>
+            <td style="text-align:center;width:100px" onclick="sort(this)">タイトル<br><span></span></td>
+            <td style="text-align:center;width:60px" onclick="sort(this)">申請日<br><span></span></td>
+            <td style="text-align:center;width:60px" onclick="sort(this)">承認日<br><span></span></td>
+            <td style="text-align:center;width:120px" onclick="sort(this)">連絡事項<br><span></span></td>
+        </tr>
+    @if(Model != null){
+        foreach(ApplicationInfoRowModel row in Model.検索結果一覧)
+        {
+
+            
+        <tr id="">
+            <td style="text-align:center;width:40px">@row.状態</td>
+            <td style="width:125px">@row.申請ID</td>
+            <td style="width:40px">@row.申請種類</td>
+            <td style="width:80px">@row.タイトル</td>
+            <td style="width:150px">@row.申請日</td>
+            <td style="width:80px">@row.承認日</td>
+            <td style="width:80px">@row.連絡事項</td>
+        </tr>
+    }
+    }
+        <tr>
+       <td style="text-align:right;width:100px">
+                        <select class="Select" id="cbx現ページ" name="現ページ" style="width:85px">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </td>
+            </tr>
+</tbody></table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+   
+        
+</body>
+</html>
